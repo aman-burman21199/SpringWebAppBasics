@@ -28,4 +28,24 @@ public class SayHelloController {
 		sb.append("</html>");
 		return sb.toString();
 	}
+	
+	// JSP is popular View technology
+	// "say-hello-jsp" => sayHello.jsp
+	// src/main/resources/META-INF/resources/WEB-INF/jsp/sayHello.jsp
+	// prefix + name of jsp + suffix => properties file
+	@RequestMapping("say-hello-jsp")
+	// No @ResponseBody. Then by default Spring considers String as View name.
+	// @ResponseBody
+	public String sayHellojsp() {
+		return "sayHello";
+	}
+	/*
+	 * Had to add below to pom.xml
+	 * <dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	 * 
+	 */
 }
