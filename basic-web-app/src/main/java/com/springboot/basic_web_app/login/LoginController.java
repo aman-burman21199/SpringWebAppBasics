@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 	
+	private AuthenticationService authenticationService;
+	
+	public LoginController(AuthenticationService authenticationService) {
+		super();
+		this.authenticationService = authenticationService;
+	}
+
 	/*
 	// We use @RequestParam to get Request parameters.
 	// To send those parameters to JSP, we use Model.
@@ -28,7 +35,12 @@ public class LoginController {
 //	@PostMapping("/login")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String welcome(@RequestParam String name,@RequestParam String password, ModelMap model) {
-		model.put("name", name);
-		return "welcome";
+		// Authentication
+		if(authenticationService.authenicate(name, password)) {
+			model.put("name", name);
+			return "welcome";
+		}
+		model.put("errorMessage", "Login Failed. Invalid username or password.");
+		return "login";
 	}
 }
