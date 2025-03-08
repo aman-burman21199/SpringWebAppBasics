@@ -2,6 +2,8 @@ package com.springboot.basic_web_app.todoapp;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Size;
+
 public class Todo {
 	public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
 		super();
@@ -14,7 +16,11 @@ public class Todo {
 
 	private int id;
 	private String username;
+	
+	// Jakarta Data Validation
+	@Size(min=10, message="Enter atleast 10 chars.")
 	private String description;
+	
 	private LocalDate targetDate;
 	private boolean done;
 	
