@@ -3,7 +3,9 @@
 		<title>Welcome JSP Page</title>
 	</head>
 	<body>
-	Welcome ${name}! 
-	<a href="list-todos">Manage</a> your todos.
+	<div class="container">
+		<h1>Welcome ${name}!</h1>
+		<a href="list-todos">Manage</a> your todos.
+	</div>
 	</body>
 </html>

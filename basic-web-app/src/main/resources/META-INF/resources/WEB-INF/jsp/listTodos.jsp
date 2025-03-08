@@ -2,33 +2,38 @@
 
 <html>
 	<head>
+		<link href="webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 		<title>List Todos Page</title>
 	</head>
 	<body>
-	Welcome ${name} to Todos page using JSP!
-	<br>
-	Your todos are :
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>User Name</th>
-				<th>Description</th>
-				<th>Target Date</th>
-				<th>Is Done?</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${todos}" var="todo">
+	<div class="container">
+		Welcome ${name} to Todos page using JSP!
+		<br>
+		Your todos are :
+		<table class="table">
+			<thead>
 				<tr>
-					<td>${todo.id}</td>
-					<td>${todo.username}</td>
-					<td>${todo.description}</td>
-					<td>${todo.targetDate}</td>
-					<td>${todo.done}</td>
+					<th>Id</th>
+					<th>User Name</th>
+					<th>Description</th>
+					<th>Target Date</th>
+					<th>Is Done?</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach items="${todos}" var="todo">
+					<tr>
+						<td>${todo.id}</td>
+						<td>${todo.username}</td>
+						<td>${todo.description}</td>
+						<td>${todo.targetDate}</td>
+						<td>${todo.done}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+	<script src="webjars/jquery/3.6.0/jquery.min.js"></script>
 	</body>
 </html>
