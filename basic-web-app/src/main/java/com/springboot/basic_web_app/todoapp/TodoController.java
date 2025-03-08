@@ -23,21 +23,21 @@ public class TodoController {
 		this.todoService = todoService;
 	}
 
-	@RequestMapping("/list-todos")
+	@RequestMapping("list-todos")
 	public String listTodos(ModelMap model) {
 		List<Todo> todos = todoService.findByUsername("Aman");
 		model.put("todos",todos);
 		return "listTodos";
 	}
 	
-	@RequestMapping(value="/add-todo",method = RequestMethod.GET)
+	@RequestMapping(value="add-todo",method = RequestMethod.GET)
 	public String showNewTodoPage(ModelMap model) {
 		Todo todo = new Todo(0,(String)model.get("name"),"",null,false);
 		model.put("todo", todo);
 		return "todo";
 	}
 	
-	@RequestMapping(value="/add-todo",method = RequestMethod.POST)
+	@RequestMapping(value="add-todo",method = RequestMethod.POST)
 	public String addNewTodoPage(ModelMap model,@Valid Todo todo, BindingResult result) {
 		if(result.hasErrors()) {
 			return "todo";
@@ -47,6 +47,12 @@ public class TodoController {
 		todoService.addTodo(username,todo.getDescription(),null,false);
 		// Instead re-writing listTodos() block here again and calling jsp,
 		// we can just redirect to the url using below.
+		return "redirect:list-todos";
+	}
+	
+	@RequestMapping("delete-todo")
+	public String deleteTodoById(@RequestParam int id) {
+		todoService.deleteTodoById(id);
 		return "redirect:list-todos";
 	}
 }
