@@ -9,13 +9,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class TodoService {
 	private static List<Todo> todos = new ArrayList<>();
+	private static int todosCount = 0;
 	static {
-		todos.add(new Todo(1,"Aman","Learn Spring",LocalDate.now().plusWeeks(1),false));
-		todos.add(new Todo(2,"Aman","Learn Spring Boot",LocalDate.now().plusWeeks(1),false));
-		todos.add(new Todo(3,"Aman","Learn Docker",LocalDate.now().plusWeeks(1),false));
+		todos.add(new Todo(++todosCount,"Aman","Learn Spring",LocalDate.now().plusWeeks(1),false));
+		todos.add(new Todo(++todosCount,"Aman","Learn Spring Boot",LocalDate.now().plusWeeks(1),false));
+		todos.add(new Todo(++todosCount,"Aman","Learn Docker",LocalDate.now().plusWeeks(1),false));
 	}
 	
 	public List<Todo> findByUsername(String name){
 		return todos;
+	}
+	
+	public void addTodo(String name,String description,LocalDate targetDate,boolean done) {
+		Todo todo = new Todo(++todosCount,name,description,targetDate,done);
+		todos.add(todo);
 	}
 }
