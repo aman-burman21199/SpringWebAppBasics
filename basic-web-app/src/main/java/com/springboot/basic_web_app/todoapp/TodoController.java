@@ -44,9 +44,28 @@ public class TodoController {
 		}
 		
 		String username = (String)model.get("name");
-		todoService.addTodo(username,todo.getDescription(),null,false);
+		todoService.addTodo(username,todo.getDescription(),todo.getTargetDate(),false);
 		// Instead re-writing listTodos() block here again and calling jsp,
 		// we can just redirect to the url using below.
+		return "redirect:list-todos";
+	}
+	
+	@RequestMapping(value="update-todo",method = RequestMethod.GET)
+	public String showUpdateTodoPage(@RequestParam int id,ModelMap model) {
+		Todo todo = todoService.findById(id);
+		model.put("todo", todo);
+		return "todo";
+	}
+	
+	@RequestMapping(value="update-todo",method = RequestMethod.POST)
+	public String updateTodoPage(ModelMap model,@Valid Todo todo, BindingResult result) {
+		if(result.hasErrors()) {
+			return "todo";
+		}
+		
+		String username = (String)model.get("name");
+		todo.setUsername(username);
+		todoService.updateTodo(todo);
 		return "redirect:list-todos";
 	}
 	
