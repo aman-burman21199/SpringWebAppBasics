@@ -28,14 +28,16 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value="/add-todo",method = RequestMethod.GET)
-	public String showNewTodoPage() {
+	public String showNewTodoPage(ModelMap model) {
+		Todo todo = new Todo(0,(String)model.get("name"),"",null,false);
+		model.put("todo", todo);
 		return "todo";
 	}
 	
 	@RequestMapping(value="/add-todo",method = RequestMethod.POST)
-	public String addNewTodoPage(@RequestParam String description,ModelMap model) {
+	public String addNewTodoPage(ModelMap model,Todo todo) {
 		String username = (String)model.get("name");
-		todoService.addTodo(username,description,null,false);
+		todoService.addTodo(username,todo.getDescription(),null,false);
 		// Instead re-writing listTodos() block here again and calling jsp,
 		// we can just redirect to the url using below.
 		return "redirect:list-todos";
