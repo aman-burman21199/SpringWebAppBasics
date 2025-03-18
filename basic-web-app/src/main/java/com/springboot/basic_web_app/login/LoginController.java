@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("name")
 public class LoginController {
 	
-	private AuthenticationService authenticationService;
-	
-	public LoginController(AuthenticationService authenticationService) {
-		super();
-		this.authenticationService = authenticationService;
-	}
+//	private AuthenticationService authenticationService;
+//	
+//	public LoginController(AuthenticationService authenticationService) {
+//		super();
+//		this.authenticationService = authenticationService;
+//	}
 
 	/*
 	// We use @RequestParam to get Request parameters.
@@ -29,20 +29,26 @@ public class LoginController {
 	*/
 	
 //	@GetMapping("/login")
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
-		return "login";
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String login() {
+//		return "login";
+//	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String goToWelcomePage(ModelMap model) {
+		model.put("name","Aman");
+		return "welcome";
 	}
 	
 //	@PostMapping("/login")
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String welcome(@RequestParam String name,@RequestParam String password, ModelMap model) {
-		// Authentication
-		if(authenticationService.authenicate(name, password)) {
-			model.put("name", name);
-			return "welcome";
-		}
-		model.put("errorMessage", "Login Failed. Invalid username or password.");
-		return "login";
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public String welcome(@RequestParam String name,@RequestParam String password, ModelMap model) {
+//		// Authentication
+//		if(authenticationService.authenicate(name, password)) {
+//			model.put("name", name);
+//			return "welcome";
+//		}
+//		model.put("errorMessage", "Login Failed. Invalid username or password.");
+//		return "login";
+//	}
 }
