@@ -2,6 +2,8 @@ package com.springboot.basic_web_app.todoapp;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,14 +27,20 @@ public class TodoController {
 
 	@RequestMapping("list-todos")
 	public String listTodos(ModelMap model) {
-		List<Todo> todos = todoService.findByUsername("Aman");
+		String username = getLoggedinUsername(model);
+		List<Todo> todos = todoService.findByUsername(username);
 		model.put("todos",todos);
 		return "listTodos";
+	}
+
+	private String getLoggedinUsername(ModelMap model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 	
 	@RequestMapping(value="add-todo",method = RequestMethod.GET)
 	public String showNewTodoPage(ModelMap model) {
-		Todo todo = new Todo(0,(String)model.get("name"),"",null,false);
+		Todo todo = new Todo(0,getLoggedinUsername(model),"",null,false);
 		model.put("todo", todo);
 		return "todo";
 	}
@@ -43,7 +51,7 @@ public class TodoController {
 			return "todo";
 		}
 		
-		String username = (String)model.get("name");
+		String username = getLoggedinUsername(model);
 		todoService.addTodo(username,todo.getDescription(),todo.getTargetDate(),false);
 		// Instead re-writing listTodos() block here again and calling jsp,
 		// we can just redirect to the url using below.
@@ -63,7 +71,7 @@ public class TodoController {
 			return "todo";
 		}
 		
-		String username = (String)model.get("name");
+		String username = getLoggedinUsername(model);
 		todo.setUsername(username);
 		todoService.updateTodo(todo);
 		return "redirect:list-todos";
