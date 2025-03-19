@@ -10,8 +10,14 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 
 // @Entity : Bean -> Database Table
-@Entity(name = "TodoTable")
+//@Entity(name = "TodoTable")
+@Entity
 public class Todo {
+	
+	public Todo() {
+		
+	}
+	
 	public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
 		super();
 		this.id = id;
