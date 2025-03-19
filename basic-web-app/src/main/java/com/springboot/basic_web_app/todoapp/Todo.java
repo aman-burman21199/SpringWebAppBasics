@@ -2,9 +2,15 @@ package com.springboot.basic_web_app.todoapp;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 
+// @Entity : Bean -> Database Table
+@Entity(name = "TodoTable")
 public class Todo {
 	public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
 		super();
@@ -15,7 +21,11 @@ public class Todo {
 		this.done = done;
 	}
 
+	@Id
+	@GeneratedValue
 	private int id;
+	
+//	@Column(name="name")
 	private String username;
 	
 	// Jakarta Data Validation
